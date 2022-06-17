@@ -8,7 +8,7 @@ const listSlice = createSlice({
   name: "listSlice",
   initialState: initial,
   reducers: {
-    addNameToList(state, action: PayloadAction<string>) {
+    addNameToList(state, action) {
       state.listOfCards.push(action.payload);
     },
   },
