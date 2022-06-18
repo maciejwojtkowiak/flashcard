@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { listAction } from "../../src/store/list-slice";
@@ -5,6 +6,7 @@ import { RootState } from "../../src/store/store";
 
 const Main = () => {
   const dispatch = useDispatch();
+  const router = useRouter();
   const [itemName, setItemName] = useState<string>("");
   const items = useSelector((state: RootState) => state.listSlice.listOfCards);
 
@@ -23,7 +25,10 @@ const Main = () => {
   const onSubmitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(listAction.addNameToList(itemName));
-    sendItem(itemName);
+  };
+
+  const onClickHandler = () => {
+    router.push("/Quiz");
   };
 
   return (
@@ -36,6 +41,7 @@ const Main = () => {
           <input onChange={onChangeHandler} className="w-full" />
           <button onClick={onSubmitHandler}>Add</button>
         </form>
+        <button onClick={onClickHandler}>Start</button>
       </div>
     </div>
   );

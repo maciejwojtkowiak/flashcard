@@ -11,6 +11,9 @@ const listSlice = createSlice({
     addNameToList(state, action) {
       state.listOfCards.push(action.payload);
     },
+    setFetchedItems(state, action) {
+      state.listOfCards = action.payload;
+    },
   },
 });
 
