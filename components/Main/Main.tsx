@@ -11,12 +11,11 @@ const Main = () => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(e.target.value);
   };
-  const onSubmitHandler = (e: React.FormEvent) => {
+  const onSubmitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(listAction.addNameToList(itemName));
   };
-  console.log(items);
-  console.log(itemName);
+
   return (
     <div className="h-screen bg-red-500 grid place-items-center">
       <div className="h-[40rem] w-[30rem] bg-white flex">
