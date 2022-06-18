@@ -11,9 +11,19 @@ const Main = () => {
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(e.target.value);
   };
+  const sendItem = async (item: string) => {
+    fetch("/api/", {
+      method: "POST",
+      body: JSON.stringify({ item: item }),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
   const onSubmitHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     dispatch(listAction.addNameToList(itemName));
+    sendItem(itemName);
   };
 
   return (
