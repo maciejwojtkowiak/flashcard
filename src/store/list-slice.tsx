@@ -1,18 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { FlashCard } from "../../shared/types";
 
 const initial = {
-  listOfCards: [] as string[],
+  listOfFlashCards: [] as FlashCard[],
 };
 
 const listSlice = createSlice({
   name: "listSlice",
   initialState: initial,
   reducers: {
-    addNameToList(state, action) {
-      state.listOfCards.push(action.payload);
+    addFlashCardToList(state, action: PayloadAction<FlashCard>) {
+      state.listOfFlashCards.push(action.payload);
     },
     setFetchedItems(state, action) {
-      state.listOfCards = action.payload;
+      state.listOfFlashCards = action.payload;
     },
   },
 });
