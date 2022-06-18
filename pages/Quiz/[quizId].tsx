@@ -1,4 +1,4 @@
-import { GetStaticPaths } from "next";
+import { GetStaticPaths, GetStaticProps } from "next";
 import { connectToMongo } from "../../helpers/connectToMongo";
 
 const FlashcardQuiz = () => {
@@ -6,8 +6,10 @@ const FlashcardQuiz = () => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
+  const db = await connectToMongo();
+
   return {
-    fallback: false,
+    fallback: "blocking",
     paths: [
       {
         params: {
@@ -15,6 +17,15 @@ export const getStaticPaths: GetStaticPaths = async () => {
         },
       },
     ],
+  };
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const flashCardId = context.params?.quizId;
+  return {
+    props: {
+      flashCardId: flashCardId,
+    },
   };
 };
 
