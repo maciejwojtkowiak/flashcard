@@ -3,7 +3,7 @@ import { listReducer } from "./list-slice";
 
 const Store = configureStore({
   reducer: {
-    listReducer: listReducer,
+    listSlice: listReducer,
   },
 });
 
