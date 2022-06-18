@@ -1,4 +1,3 @@
-import { ObjectId } from "mongodb";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,9 +9,6 @@ const FlashCardForm = () => {
   const router = useRouter();
   const [itemName, setItemName] = useState<string>("");
   const [itemsList, setItemsList] = useState<string[]>([]);
-  const flashCards = useSelector(
-    (state: RootState) => state.listSlice.listOfFlashCards
-  );
 
   const onChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setItemName(e.target.value);
@@ -33,26 +29,19 @@ const FlashCardForm = () => {
 
   const onClickHandler = () => {
     const flashCard = {
-      _id: new ObjectId(Math.random() * 100),
+      id: Math.random().toString(),
       items: itemsList,
     };
     dispatch(listAction.addFlashCardToList(flashCard));
-    router.push("/Quiz");
+    router.push("/quiz");
   };
 
   return (
     <div className="h-screen bg-red-500 grid place-items-center">
       <div className="h-[40rem] w-[30rem] bg-white flex">
-        {flashCards.map((flashCard) => (
-          <div>
-            {flashCard.items.map((item) => (
-              <div>{item}</div>
-            ))}
-          </div>
-        ))}
         <form className="h-[10%] w-full self-end">
-          <input onChange={onChangeHandler} className="w-full" />
-          <button onClick={onSubmitHandler}>Add</button>
+          <input className="w-full" />
+          <button>Add</button>
         </form>
         <button onClick={onClickHandler}>Start</button>
       </div>
