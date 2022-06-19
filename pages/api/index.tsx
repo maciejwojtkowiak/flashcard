@@ -10,7 +10,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     );
     const db = client.db();
 
-    const itemCollection = db.collection("items");
+    const itemCollection = db.collection("flashcards");
     console.log("collect", itemCollection);
     await itemCollection.insertOne(item);
   }

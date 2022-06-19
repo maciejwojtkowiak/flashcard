@@ -7,13 +7,25 @@ const FlashcardQuiz = () => {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const db = await connectToMongo();
+  const flashcardsCollection = db.collection("flashcards");
+  const correctedFlashcards = (
+    await flashcardsCollection.find({}).toArray()
+  ).map((flashCard) => {
+    return {
+      params: {
+        ...flashCard,
+        _id: flashCard._id.toString(),
+      },
+    };
+  });
+  console.log("corrected", correctedFlashcards);
 
   return {
-    fallback: "blocking",
+    fallback: true,
     paths: [
       {
         params: {
-          quizId: "2",
+          quizId: "123",
         },
       },
     ],
