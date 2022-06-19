@@ -17,7 +17,7 @@ const FlashCardForm = () => {
   const sendFlashcard = async (flashcard: FlashCard) => {
     fetch("/api/", {
       method: "POST",
-      body: JSON.stringify({ flashcard: flashcard }),
+      body: JSON.stringify({ id: flashcard.id, items: flashcard.items }),
       headers: {
         "Content-Type": "application/json",
       },
@@ -28,6 +28,7 @@ const FlashCardForm = () => {
     setItemsList((prevList) => prevList.concat(itemName));
   };
 
+  // dodaj do bazy i połącz się z bazą dodaj getServerSideProps
   const onClickHandler = () => {
     const flashCard = {
       id: Math.random().toString(),
@@ -35,7 +36,7 @@ const FlashCardForm = () => {
     };
     dispatch(listAction.addFlashCardToList(flashCard));
     sendFlashcard(flashCard);
-    router.push("/quiz");
+    router.push("/quiz" + flashCard.id);
   };
 
   console.log(itemsList);
