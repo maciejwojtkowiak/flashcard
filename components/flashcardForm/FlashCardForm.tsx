@@ -36,7 +36,7 @@ const FlashCardForm = () => {
     };
     dispatch(listAction.addFlashCardToList(flashCard));
     sendFlashcard(flashCard);
-    router.push("/quiz" + flashCard.id);
+    router.push("/quiz/" + flashCard.id);
   };
 
   console.log(itemsList);

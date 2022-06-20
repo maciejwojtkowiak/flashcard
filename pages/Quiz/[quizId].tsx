@@ -1,14 +1,14 @@
 import { ObjectId } from "mongodb";
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { connectToMongo } from "../../helpers/connectToMongo";
+import { FlashCard } from "../../shared/types";
 
 const FlashcardQuiz = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  console.log(props.flashcard);
   return (
     <div>
-      {props.flashcard.flashcard.items.map((item: string) => (
+      {props.flashcard.items.map((item: string) => (
         <h1>{item}</h1>
       ))}
     </div>
@@ -21,9 +21,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const correctedFlashcards = (
     await flashcardsCollection.find({}).toArray()
   ).map((flashcard) => {
+    console.log("mapped flash", flashcard);
     return {
       params: {
-        quizId: flashcard.flashcard.id,
+        quizId: flashcard.id,
       },
     };
   });
@@ -44,15 +45,16 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await flashcardsCollection.find({}).toArray()
   ).map((flashcard) => {
     return {
-      ...flashcard,
-      _id: flashcard._id.toString(),
+      items: flashcard.items,
+      id: flashcard.id,
+      _id: flashcard._id!.toString(),
     };
-  });
+  }) as FlashCard[];
 
-  console.log("corrected,", correctedFlashcard);
+  console.log("correctedFetched,", correctedFlashcard);
 
   const foundFlashcard = correctedFlashcard.find(
-    (flashcard) => flashcard._id === flashCardId
+    (flashcard) => flashcard.id === flashCardId
   );
 
   console.log("found", foundFlashcard);
