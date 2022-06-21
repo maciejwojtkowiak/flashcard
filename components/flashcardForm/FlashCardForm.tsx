@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FlashCard } from "../../shared/types";
 import { listAction } from "../../src/store/list-slice";
+import FlashcardItem from "./FlashcardItem";
 
 const FlashcardForm = () => {
   const dispatch = useDispatch();
@@ -27,7 +28,6 @@ const FlashcardForm = () => {
     setItemsList((prevList) => prevList.concat(itemName));
   };
 
-  // dodaj do bazy i połącz się z bazą dodaj getServerSideProps
   const onClickHandler = () => {
     const flashCard = {
       id: Math.random().toString(),
@@ -41,9 +41,9 @@ const FlashcardForm = () => {
   return (
     <div className="h-screen bg-red-500 grid place-items-center">
       <div className="h-[40rem] w-[30rem] bg-white ">
-        <div className=" h-[35rem] bg-yellow-500">
+        <div className=" h-[35rem] bg-yellow-500 overflow-auto">
           {itemsList.map((item) => (
-            <div className=" break-words">{item}</div>
+            <FlashcardItem itemName={item} />
           ))}
         </div>
         <form className=" self-end bg-green-500 h-[5rem] ">

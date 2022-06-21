@@ -3,7 +3,11 @@ interface FlashCardItemProps {
 }
 
 const FlashcardItem: React.FC<FlashCardItemProps> = (props) => {
-  return <div className="bg-red-500">{props.itemName}</div>;
+  return (
+    <div className="border-2 border-color-red-500 break-words">
+      {props.itemName}
+    </div>
+  );
 };
 
 export default FlashcardItem;
