@@ -1,5 +1,6 @@
 import { FlashCard } from "../../shared/types";
 import { useState, useEffect } from "react";
+import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 
 interface QuizProps {
   flashcard: FlashCard;
@@ -28,10 +29,23 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
   return (
-    <div>
-      <h1>{items[actualIndex]}</h1>
-      {!isAtMinIndex && <button onClick={() => onClickDecrease()}>-</button>}
-      {!isAtMaxIndex && <button onClick={() => onClickIncrease()}>+</button>}
+    <div className="h-screen w-full grid place-items-center">
+      <div className="h-[20rem] w-1/4 drop-shadow-2xl shadow-2xl text-blue-500 border-2">
+        <h1>{items[actualIndex]}</h1>
+      </div>
+
+      <div>
+        {!isAtMinIndex && (
+          <button onClick={onClickDecrease}>
+            <FaArrowLeft />
+          </button>
+        )}
+        {!isAtMaxIndex && (
+          <button onClick={onClickIncrease}>
+            <FaArrowRight />
+          </button>
+        )}
+      </div>
     </div>
   );
 };

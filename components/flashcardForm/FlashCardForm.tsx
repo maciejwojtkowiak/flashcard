@@ -42,9 +42,9 @@ const FlashcardForm = () => {
   };
 
   return (
-    <div className="h-screen bg-white grid place-items-center ">
-      <div className="h-[40rem] w-[30rem] bg-white drop-shadow-2xl shadow-2xl ">
-        <div className=" h-[35rem] w-full bg-white">
+    <div className="h-screen  grid place-items-center ">
+      <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
+        <div className=" h-[35rem] w-full ">
           {itemsList.map((item) => (
             <FlashcardItem itemName={item} />
           ))}
@@ -54,7 +54,7 @@ const FlashcardForm = () => {
             <input
               value={itemName}
               onChange={onChangeHandler}
-              className="w-full bg-white focus:outline-none"
+              className="w-full  focus:outline-none"
             />
             <button
               className="w-full text-green-500 font-bold"
