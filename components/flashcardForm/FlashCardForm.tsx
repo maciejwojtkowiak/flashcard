@@ -1,11 +1,10 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FlashCard } from "../../shared/types";
 import { listAction } from "../../src/store/list-slice";
-import { RootState } from "../../src/store/store";
 
-const FlashCardForm = () => {
+const FlashcardForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [itemName, setItemName] = useState<string>("");
@@ -39,23 +38,24 @@ const FlashCardForm = () => {
     router.push("/quiz/" + flashCard.id);
   };
 
-  console.log(itemsList);
-  console.log(itemName);
-
   return (
     <div className="h-screen bg-red-500 grid place-items-center">
-      <div className="h-[40rem] w-[30rem] bg-white flex">
-        {itemsList.map((itemList) => (
-          <div>{itemList}</div>
-        ))}
-        <form className="h-[10%] w-full self-end">
-          <input onChange={onChangeHandler} className="w-full" />
+      <div className="h-[40rem] w-[30rem] bg-white ">
+        <div className=" h-[35rem] bg-yellow-500">
+          {itemsList.map((item) => (
+            <div className=" break-words">{item}</div>
+          ))}
+        </div>
+        <form className=" self-end bg-green-500 h-[5rem] ">
+          <input onChange={onChangeHandler} className="w-full bg-purple-500" />
           <button onClick={onAddHandler}>Add</button>
+          <button className="bg-blue-500" onClick={onClickHandler}>
+            Start
+          </button>
         </form>
-        <button onClick={onClickHandler}>Start</button>
       </div>
     </div>
   );
 };
 
-export default FlashCardForm;
+export default FlashcardForm;

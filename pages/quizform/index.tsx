@@ -1,13 +1,12 @@
 import { NextPage } from "next";
 import React from "react";
-import FlashCardForm from "../../components/flashcardForm/FlashCardForm";
+import FlashcardForm from "../../../flashcard/components/flashcardForm/FlashcardForm";
 import Main from "../../components/main/Main";
 
 const QuizForm: NextPage = () => {
   return (
     <React.Fragment>
-      <FlashCardForm />
-      adjdas
+      <FlashcardForm />
     </React.Fragment>
   );
 };
