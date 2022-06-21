@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FlashCard } from "../../shared/types";
 import { listAction } from "../../src/store/list-slice";
+import FlashcardItem from "./FlashcardItem";
 
 const FlashcardForm = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,9 @@ const FlashcardForm = () => {
   };
   const onAddHandler = (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
+
     setItemsList((prevList) => prevList.concat(itemName));
+    setItemName("");
   };
 
   // dodaj do bazy i połącz się z bazą dodaj getServerSideProps
@@ -39,20 +42,34 @@ const FlashcardForm = () => {
   };
 
   return (
-    <div className="h-screen bg-red-500 grid place-items-center">
-      <div className="h-[40rem] w-[30rem] bg-white ">
-        <div className=" h-[35rem] bg-yellow-500">
+    <div className="h-screen bg-white grid place-items-center ">
+      <div className="h-[40rem] w-[30rem] bg-white drop-shadow-2xl shadow-2xl ">
+        <div className=" h-[35rem] w-full bg-white">
           {itemsList.map((item) => (
-            <div className=" break-words">{item}</div>
+            <FlashcardItem itemName={item} />
           ))}
         </div>
-        <form className=" self-end bg-green-500 h-[5rem] ">
-          <input onChange={onChangeHandler} className="w-full bg-purple-500" />
-          <button onClick={onAddHandler}>Add</button>
-        </form>
-        <button className="bg-blue-500" onClick={onClickHandler}>
-          Start
-        </button>
+        <div className="grid grid-rows-2 h-[5rem]">
+          <form className=" self-end  ">
+            <input
+              value={itemName}
+              onChange={onChangeHandler}
+              className="w-full bg-white focus:outline-none"
+            />
+            <button
+              className="w-full text-green-500 font-bold"
+              onClick={onAddHandler}
+            >
+              Add
+            </button>
+          </form>
+          <button
+            className="text-blue-500 font-bold w-full "
+            onClick={onClickHandler}
+          >
+            Start
+          </button>
+        </div>
       </div>
     </div>
   );
