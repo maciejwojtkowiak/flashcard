@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FlashCard } from "../../shared/types";
 import { listAction } from "../../src/store/list-slice";
-import FlashcardItem from "./FlashcardItem";
 
 const FlashcardForm = () => {
   const dispatch = useDispatch();
@@ -28,6 +27,7 @@ const FlashcardForm = () => {
     setItemsList((prevList) => prevList.concat(itemName));
   };
 
+  // dodaj do bazy i połącz się z bazą dodaj getServerSideProps
   const onClickHandler = () => {
     const flashCard = {
       id: Math.random().toString(),
@@ -41,18 +41,18 @@ const FlashcardForm = () => {
   return (
     <div className="h-screen bg-red-500 grid place-items-center">
       <div className="h-[40rem] w-[30rem] bg-white ">
-        <div className=" h-[35rem] bg-yellow-500 overflow-auto">
+        <div className=" h-[35rem] bg-yellow-500">
           {itemsList.map((item) => (
-            <FlashcardItem itemName={item} />
+            <div className=" break-words">{item}</div>
           ))}
         </div>
         <form className=" self-end bg-green-500 h-[5rem] ">
           <input onChange={onChangeHandler} className="w-full bg-purple-500" />
           <button onClick={onAddHandler}>Add</button>
-          <button className="bg-blue-500" onClick={onClickHandler}>
-            Start
-          </button>
         </form>
+        <button className="bg-blue-500" onClick={onClickHandler}>
+          Start
+        </button>
       </div>
     </div>
   );
