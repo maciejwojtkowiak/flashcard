@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import Store from "../src/store/store";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Bars } from "react-loader-spinner";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -14,7 +15,11 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
   return (
     <Provider store={Store}>
-      {isLoading && <div>Loading</div>}
+      {isLoading && (
+        <div className="h-screen grid place-items-center">
+          <Bars height={100} width={100} color="#4ade80" />
+        </div>
+      )}
       {!isLoading && <Component {...pageProps} />}
     </Provider>
   );
