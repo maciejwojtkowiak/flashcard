@@ -1,6 +1,7 @@
 import { FlashCard } from "../../shared/types";
 import React, { useState, useEffect } from "react";
 import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import Link from "next/link";
 
 interface QuizProps {
   flashcard: FlashCard;
@@ -33,7 +34,7 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
-      <div className={`w-[${widthOfBlock}%]  border-2 border-blue-500`} />
+      <div className={`w-[${widthOfBlock}%]  border-2 border-blue-500 `} />
     );
   }
   console.log(widthOfBlock);
@@ -54,8 +55,15 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
             <FaArrowRight />
           </button>
         )}
+        {isAtMaxIndex && (
+          <Link href="/">
+            <button>Finish!</button>
+          </Link>
+        )}
       </div>
-      <div className=" w-full place-self-end flex">{arrayOfProgressBlocks}</div>
+      <div className=" w-full place-self-end flex gap-2">
+        {arrayOfProgressBlocks}
+      </div>
     </div>
   );
 };
