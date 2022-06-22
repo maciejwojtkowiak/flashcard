@@ -11,7 +11,7 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
   const items = props.flashcard?.items;
   const MIN_INDEX = 0;
   const MAX_INDEX = items.length - 1;
-  const widthOfBlock = (100 / items.length).toString();
+  const widthOfBlock = (100 / items.length).toFixed(2).toString();
   const [actualIndex, setActualIndex] = useState<number>(0);
   const arrayOfProgressBlocks: React.ReactElement[] = [];
   const [isAtMinIndex, setIsAtMinIndex] = useState<boolean>(false);
@@ -34,10 +34,14 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
-      <div className={`w-[${widthOfBlock}%]  border-2 border-blue-500 `} />
+      <div
+        key={i}
+        className={`border-2 border-blue-500 `}
+        style={{ width: `${widthOfBlock}%` }}
+      />
     );
   }
-  console.log(widthOfBlock);
+
   return (
     <div className="h-screen w-full grid place-items-center">
       <div className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2">
@@ -45,23 +49,26 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
       </div>
 
       <div>
-        {!isAtMinIndex && (
-          <button onClick={onClickDecrease}>
-            <FaArrowLeft />
-          </button>
-        )}
-        {!isAtMaxIndex && (
-          <button onClick={onClickIncrease}>
-            <FaArrowRight />
-          </button>
-        )}
+        <div>
+          {!isAtMinIndex && (
+            <button onClick={onClickDecrease}>
+              <FaArrowLeft />
+            </button>
+          )}
+          {!isAtMaxIndex && (
+            <button onClick={onClickIncrease}>
+              <FaArrowRight />
+            </button>
+          )}
+        </div>
+
         {isAtMaxIndex && (
           <Link href="/">
-            <button>Finish!</button>
+            <button className="absolute">Finish!</button>
           </Link>
         )}
       </div>
-      <div className=" w-full place-self-end flex gap-2">
+      <div className=" w-screen place-self-end flex gap-2">
         {arrayOfProgressBlocks}
       </div>
     </div>

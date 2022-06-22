@@ -30,7 +30,6 @@ const FlashcardForm = () => {
     setItemName("");
   };
 
-  // dodaj do bazy i połącz się z bazą dodaj getServerSideProps
   const onClickHandler = () => {
     const flashCard = {
       id: Math.random().toString(),
