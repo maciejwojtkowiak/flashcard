@@ -42,7 +42,7 @@ const FlashcardForm = () => {
   };
 
   return (
-    <div className="h-screen  grid place-items-center ">
+    <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
         <div className=" h-[35rem] w-full ">
           {itemsList.map((item) => (
@@ -50,11 +50,12 @@ const FlashcardForm = () => {
           ))}
         </div>
         <div className="grid grid-rows-2 h-[5rem]">
-          <form className=" self-end  ">
+          <form className=" self-end grid place-items-center ">
             <input
               value={itemName}
+              placeholder="Here type your definition"
               onChange={onChangeHandler}
-              className="w-full  focus:outline-none"
+              className="w-3/4 py-2 px-2 mb-4  focus:outline-none  bg-gray-200 border-2 border-b-green-500"
             />
             <button
               className="w-full text-green-500 font-bold"

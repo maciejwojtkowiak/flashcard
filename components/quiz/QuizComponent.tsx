@@ -7,7 +7,7 @@ interface QuizProps {
 }
 
 const QuizComponent: React.FC<QuizProps> = (props) => {
-  const items = props.flashcard.items;
+  const items = props.flashcard?.items;
   const MIN_INDEX = 0;
   const MAX_INDEX = items.length - 1;
   const [actualIndex, setActualIndex] = useState<number>(0);
