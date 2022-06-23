@@ -64,7 +64,9 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
         {isAtMaxIndex && (
           <Link href="/">
-            <button className="absolute">Finish!</button>
+            <button className="absolute text-4xl translate-x-[-50%] mt-16">
+              Finish!
+            </button>
           </Link>
         )}
       </div>
