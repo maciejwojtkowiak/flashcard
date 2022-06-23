@@ -56,8 +56,6 @@ const FlashcardForm = () => {
     });
   };
 
-  console.log(itemsList);
-
   return (
     <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
