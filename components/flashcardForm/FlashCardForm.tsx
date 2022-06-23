@@ -59,7 +59,7 @@ const FlashcardForm = () => {
   return (
     <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
-        <div className=" h-[35rem] w-full ">
+        <div className=" h-[35rem] w-full overflow-auto">
           {itemsList.map((item) => (
             <FlashcardItem item={item} updateItem={updateItems} />
           ))}
