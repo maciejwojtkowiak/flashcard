@@ -32,13 +32,20 @@ const FlashcardForm = () => {
   };
 
   const onClickHandler = () => {
-    const flashCard = {
-      id: Math.random().toString(),
-      items: itemsList,
-    };
-    dispatch(listAction.addFlashCardToList(flashCard));
-    sendFlashcard(flashCard);
-    router.push("/quiz/" + flashCard.id);
+    const someFlashcardIsEmpty = itemsList.some(
+      (flashcard) =>
+        flashcard.word.length === 0 || flashcard.definition.length === 0
+    );
+    console.log("empty", someFlashcardIsEmpty);
+    if (itemsList.length !== 0 && !someFlashcardIsEmpty) {
+      const flashCard = {
+        id: Math.random().toString(),
+        items: itemsList,
+      };
+      dispatch(listAction.addFlashCardToList(flashCard));
+      sendFlashcard(flashCard);
+      router.push("/quiz/" + flashCard.id);
+    } else return;
   };
 
   const updateItems = (item: FlashcardItemInterface) => {
@@ -56,12 +63,10 @@ const FlashcardForm = () => {
     });
   };
 
-  console.log(itemsList);
-
   return (
     <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
-        <div className=" h-[35rem] w-full ">
+        <div className=" h-[35rem] w-full overflow-auto">
           {itemsList.map((item) => (
             <FlashcardItem item={item} updateItem={updateItems} />
           ))}

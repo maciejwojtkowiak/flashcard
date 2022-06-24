@@ -16,6 +16,7 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
   const arrayOfProgressBlocks: React.ReactElement[] = [];
   const [isAtMinIndex, setIsAtMinIndex] = useState<boolean>(false);
   const [isAtMaxIndex, setIsAtMaxIndex] = useState<boolean>(false);
+  const [definitionIsShown, setDefinitionIsShown] = useState<boolean>(false);
 
   const onClickDecrease = () => {
     setActualIndex((prevIndex) => --prevIndex);
@@ -23,6 +24,10 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   const onClickIncrease = () => {
     setActualIndex((previndex) => ++previndex);
+  };
+
+  const onClickFlip = () => {
+    setDefinitionIsShown((prev) => !prev);
   };
 
   useEffect(() => {
@@ -44,8 +49,15 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   return (
     <div className="h-screen w-full grid place-items-center">
-      <div className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2">
-        <h1 className="text-6xl">{items[actualIndex]}</h1>
+      <div
+        onClick={onClickFlip}
+        className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2"
+      >
+        <h1 className="text-6xl">
+          {!definitionIsShown
+            ? items[actualIndex].word
+            : items[actualIndex].definition}
+        </h1>
       </div>
 
       <div>
