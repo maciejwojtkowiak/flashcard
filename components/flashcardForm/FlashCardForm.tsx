@@ -9,6 +9,7 @@ const FlashcardForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const [itemsList, setItemsList] = useState<FlashcardItemInterface[]>([]);
+  const [title, setTitle] = useState<string>("");
 
   const sendFlashcard = async (flashcard: FlashCard) => {
     fetch("/api/", {
@@ -67,6 +68,13 @@ const FlashcardForm = () => {
     <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
         <div className=" h-[35rem] w-full overflow-auto">
+          <div className=" flex justify-center mx-4 ">
+            <input
+              placeholder="Set title"
+              className="border-b-2 border-blue-400 bg-gray-200 py-2 px-1 focus:outline-none my-8"
+            />
+          </div>
+
           {itemsList.map((item) => (
             <FlashcardItem item={item} updateItem={updateItems} />
           ))}
