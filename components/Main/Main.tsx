@@ -1,15 +1,16 @@
-import { ObjectId } from "mongodb";
 import Link from "next/link";
-import { useRouter } from "next/router";
 
 const Main = () => {
-  const router = useRouter();
-
   return (
-    <div className="h-screen grid  place-items-center">
+    <div className="h-screen grid  content-center justify-center gap-16">
       <Link href="/quizform">
-        <button className="bg-green-500  px-12 py-8 text-white text-4xl font-bold">
+        <button className="bg-green-500  px-12 py-8 text-white text-4xl font-bold w-[30rem]">
           Create flashcard
+        </button>
+      </Link>
+      <Link href="/createdquizes">
+        <button className="bg-blue-500 px-12 py-8 text-white text-3xl font-bold w-[30rem]">
+          Flashcards created by users
         </button>
       </Link>
     </div>

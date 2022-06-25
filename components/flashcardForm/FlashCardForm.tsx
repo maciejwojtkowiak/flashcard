@@ -37,11 +37,13 @@ const FlashcardForm = () => {
       (flashcard) =>
         flashcard.word.length === 0 || flashcard.definition.length === 0
     );
-    console.log("empty", someFlashcardIsEmpty);
-    if (itemsList.length !== 0 && !someFlashcardIsEmpty) {
+
+    if (itemsList.length !== 0 && !someFlashcardIsEmpty && title.length !== 0) {
       const flashCard = {
+        title: title,
         id: Math.random().toString(),
         items: itemsList,
+        dateOfCreation: new Date(),
       };
       dispatch(listAction.addFlashCardToList(flashCard));
       sendFlashcard(flashCard);
