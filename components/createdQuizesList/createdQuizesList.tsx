@@ -4,10 +4,13 @@ interface createdQuizesProps {
   createdQuizes: FlashCard[];
 }
 
-const createdQuizesList = (props: createdQuizesProps) => {
+const CreatedQuizesList = (props: createdQuizesProps) => {
   const listOfFlashcards = props.createdQuizes;
+  console.log(listOfFlashcards);
+  console.log("hi");
   return (
     <div>
+      <h1>HEJO</h1>
       {listOfFlashcards.map((flashcard) => (
         <div>{flashcard.title}</div>
       ))}
@@ -15,4 +18,4 @@ const createdQuizesList = (props: createdQuizesProps) => {
   );
 };
 
-export default createdQuizesList;
+export default CreatedQuizesList;

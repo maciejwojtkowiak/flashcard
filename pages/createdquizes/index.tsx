@@ -5,7 +5,7 @@ import CreatedQuizesList from "../../components/createdQuizesList/createdQuizesL
 const CreatedQuizes = (
   props: InferGetStaticPropsType<typeof getStaticProps>
 ) => {
-  <CreatedQuizesList createdQuizes={props.flashcards} />;
+  return <CreatedQuizesList createdQuizes={props.flashcards} />;
 };
 
 export const getStaticProps: GetStaticProps = async () => {
