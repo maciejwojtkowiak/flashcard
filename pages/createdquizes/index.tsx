@@ -1,6 +1,6 @@
 import { GetStaticProps, InferGetStaticPropsType, NextPage } from "next";
 import { connectToMongo } from "../../helpers/connectToMongo";
-import CreatedQuizesList from "../../components/createdQuizesList/createdQuizesList";
+import CreatedQuizesList from "../../components/CreatedQuizesList/createdQuizesList";
 
 const CreatedQuizes: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>

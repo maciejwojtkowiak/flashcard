@@ -1,7 +1,7 @@
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
 import { connectToMongo } from "../../helpers/connectToMongo";
 import { FlashCard } from "../../shared/types";
-import QuizComponent from "../../components/quiz/QuizComponent";
+import QuizComponent from "../../components/Quiz/QuizComponent";
 
 const FlashcardQuiz = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -22,6 +22,8 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 
+  console.log("corrected", flashcardsCollection)
+
   return {
     fallback: "blocking",
     paths: correctedFlashcards,
@@ -37,8 +39,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
     await flashcardsCollection.find({}).toArray()
   ).map((flashcard) => {
     return {
-      items: flashcard.items,
-      id: flashcard.id,
+      ...flashcard,
       _id: flashcard._id!.toString(),
     };
   }) as FlashCard[];
@@ -46,6 +47,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const foundFlashcard = correctedFlashcard.find(
     (flashcard) => flashcard.id === flashCardId
   );
+  console.log("corrected", correctedFlashcard)
 
   return {
     props: {

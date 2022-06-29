@@ -9,7 +9,8 @@ export interface FlashcardItemInterface {
 export interface FlashCard {
   _id?: ObjectId | string;
   id: string;
-  title: string;
   items: FlashcardItemInterface[];
-  dateOfCreation: Date;
+  title: string;
+ 
+  
 }

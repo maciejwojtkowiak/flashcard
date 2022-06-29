@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { FlashCard, FlashcardItemInterface } from "../../shared/types";
 import { listAction } from "../../src/store/list-slice";
-import FlashcardItem from "./FlashcardItem";
+import FlashcardItem from "./FlashcardItem"
 
 const FlashcardForm = () => {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ const FlashcardForm = () => {
   const sendFlashcard = async (flashcard: FlashCard) => {
     fetch("/api/", {
       method: "POST",
-      body: JSON.stringify({ id: flashcard.id, items: flashcard.items }),
+      body: JSON.stringify({...flashcard}),
       headers: {
         "Content-Type": "application/json",
       },
@@ -27,7 +27,7 @@ const FlashcardForm = () => {
       word: "",
       definition: "",
       id: Math.random(),
-    };
+    };  
 
     setItemsList((prevList) => prevList.concat(flashcardItem));
   };
@@ -38,17 +38,17 @@ const FlashcardForm = () => {
         flashcard.word.length === 0 || flashcard.definition.length === 0
     );
 
-    if (itemsList.length !== 0 && !someFlashcardIsEmpty && title.length !== 0) {
+    
       const flashCard = {
         title: title,
         id: Math.random().toString(),
         items: itemsList,
-        dateOfCreation: new Date(),
+        
       };
       dispatch(listAction.addFlashCardToList(flashCard));
       sendFlashcard(flashCard);
       router.push("/quiz/" + flashCard.id);
-    } else return;
+    
   };
 
   const updateItems = (item: FlashcardItemInterface) => {
@@ -66,12 +66,17 @@ const FlashcardForm = () => {
     });
   };
 
+  const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.target.value)
+  }
+
   return (
     <div className="h-screen  grid place-items-center">
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
         <div className=" h-[35rem] w-full overflow-auto">
           <div className=" flex justify-center mx-4 ">
             <input
+            onChange={onTitleChange}
               placeholder="Set title"
               className="border-b-2 border-blue-400 bg-gray-200 py-2 px-1 focus:outline-none my-8"
             />

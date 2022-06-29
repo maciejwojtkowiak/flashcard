@@ -1,7 +1,7 @@
 import { NextPage } from "next";
 import React from "react";
-import FlashcardForm from "../../../flashcard/components/flashcardForm/FlashcardForm";
-import Main from "../../components/main/Main";
+import FlashcardForm from "../../components/FlashcardForm/FlashCardForm";
+
 
 const QuizForm: NextPage = () => {
   return (

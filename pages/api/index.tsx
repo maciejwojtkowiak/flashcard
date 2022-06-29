@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient, ObjectId } from "mongodb";
+import { FlashCard } from "../../shared/types";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
@@ -10,8 +11,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     const db = client.db();
     const itemToInsert = {
       _id: new ObjectId(Math.random()),
-      id: item.id,
-      items: item.items,
+      ...item
     };
 
     const itemCollection = db.collection("flashcards");
