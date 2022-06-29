@@ -1,13 +1,13 @@
-import { FlashCard } from "../../shared/types";
-import React, { useState, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import { FlashCard } from '../../shared/types';
+import React, { useState, useEffect } from 'react';
+import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import Link from 'next/link';
 
 interface QuizProps {
   flashcard: FlashCard;
 }
 
-const QuizComponent: React.FC<QuizProps> = (props) => {
+const QuizComponent = (props: QuizProps) => {
   const items = props.flashcard?.items;
   const MIN_INDEX = 0;
   const MAX_INDEX = items.length - 1;
@@ -16,7 +16,8 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
   const arrayOfProgressBlocks: React.ReactElement[] = [];
   const [isAtMinIndex, setIsAtMinIndex] = useState<boolean>(false);
   const [isAtMaxIndex, setIsAtMaxIndex] = useState<boolean>(false);
-  const [definitionIsShown, setDefinitionIsShown] = useState<boolean>(false);
+  const [definitionIsShown, setDefinitionIsShown] =
+    useState<boolean>(false);
 
   const onClickDecrease = () => {
     setActualIndex((prevIndex) => --prevIndex);
@@ -36,7 +37,7 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
     if (actualIndex === MAX_INDEX) setIsAtMaxIndex(true);
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
-  console.log('title', props.flashcard.title) 
+  console.log('title', props.flashcard.title);
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(

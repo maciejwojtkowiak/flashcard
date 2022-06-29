@@ -8,16 +8,16 @@ interface createdQuizesProps {
 const CreatedQuizesList = (props: createdQuizesProps) => {
   const listOfFlashcards = props.createdQuizes;
   console.log(listOfFlashcards);
-  console.log('hi');
   return (
-    <div>
-      <h1>HEJO</h1>
-      {listOfFlashcards.map((flashcard) => (
-        <React.Fragment>
-          <div>{flashcard.title}</div>
-          <div>{flashcard.id}</div>
-        </React.Fragment>
-      ))}
+    <div className="h-screen  grid place-items-center">
+      <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
+        <h1>HEJO</h1>
+        {listOfFlashcards.map((flashcard) => (
+          <React.Fragment>
+            <div>{flashcard.title}</div>
+          </React.Fragment>
+        ))}
+      </div>
     </div>
   );
 };

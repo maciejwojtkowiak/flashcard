@@ -1,14 +1,14 @@
-import { useState } from "react";
-import { FlashcardItemInterface } from "../../shared/types";
+import { useState } from 'react';
+import { FlashcardItemInterface } from '../../shared/types';
 
 interface FlashCardItemProps {
   item: FlashcardItemInterface;
   updateItem: (item: FlashcardItemInterface) => void;
 }
 
-const FlashcardItem: React.FC<FlashCardItemProps> = (props) => {
-  const [word, setWord] = useState<string>("");
-  const [definition, setDefinition] = useState<string>("");
+const FlashcardItem = (props: FlashCardItemProps) => {
+  const [word, setWord] = useState<string>('');
+  const [definition, setDefinition] = useState<string>('');
   const onChangeValueHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
     setValue: (value: string) => void
