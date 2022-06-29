@@ -11,6 +11,4 @@ export interface FlashCard {
   id: string;
   items: FlashcardItemInterface[];
   title: string;
- 
-  
 }

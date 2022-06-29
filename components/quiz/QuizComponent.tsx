@@ -36,7 +36,7 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
     if (actualIndex === MAX_INDEX) setIsAtMaxIndex(true);
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
-  console.log('title', props.flashcard.title)
+  console.log('title', props.flashcard.title) 
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
