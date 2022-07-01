@@ -1,5 +1,6 @@
 import React from 'react';
 import { FlashCard } from '../../shared/types';
+import CreatedQuizItem from './CreatedQuizItem';
 
 interface createdQuizesProps {
   createdQuizes: FlashCard[];
@@ -10,11 +11,10 @@ const CreatedQuizesList = (props: createdQuizesProps) => {
   console.log(listOfFlashcards);
   return (
     <div className="h-screen  grid place-items-center">
-      <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
-        <h1>HEJO</h1>
+      <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl  overflow-auto ">
         {listOfFlashcards.map((flashcard) => (
           <React.Fragment>
-            <div>{flashcard.title}</div>
+            <CreatedQuizItem title={flashcard.title} />
           </React.Fragment>
         ))}
       </div>
