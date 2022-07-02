@@ -1,9 +1,9 @@
 import React from 'react';
-import { FlashCard } from '../../shared/types';
+import { Flashcard } from '../../shared/types';
 import CreatedQuizItem from './CreatedQuizItem';
 
 interface createdQuizesProps {
-  createdQuizes: FlashCard[];
+  createdQuizes: Flashcard[];
 }
 
 const CreatedQuizesList = (props: createdQuizesProps) => {
@@ -14,7 +14,7 @@ const CreatedQuizesList = (props: createdQuizesProps) => {
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl  overflow-auto ">
         {listOfFlashcards.map((flashcard) => (
           <React.Fragment>
-            <CreatedQuizItem title={flashcard.title} />
+            <CreatedQuizItem flashcard={flashcard} />
           </React.Fragment>
         ))}
       </div>

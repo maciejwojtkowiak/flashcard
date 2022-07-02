@@ -1,10 +1,10 @@
-import { FlashCard } from '../../shared/types';
+import { Flashcard } from '../../shared/types';
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
 
 interface QuizProps {
-  flashcard: FlashCard;
+  flashcard: Flashcard;
 }
 
 const QuizComponent = (props: QuizProps) => {
