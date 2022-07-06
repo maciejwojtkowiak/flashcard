@@ -4,6 +4,7 @@ import { FlashcardItemInterface } from '../../shared/types';
 interface FlashCardItemProps {
   item: FlashcardItemInterface;
   updateItem: (item: FlashcardItemInterface) => void;
+  deleteItem: (item: FlashcardItemInterface) => void;
 }
 
 const FlashcardItem = (props: FlashCardItemProps) => {
@@ -21,6 +22,10 @@ const FlashcardItem = (props: FlashCardItemProps) => {
     };
     props.updateItem(item);
   };
+
+  const onClickHandler = () => {
+    props.deleteItem(props.item);
+  };
   return (
     <div className=" w-full flex gap-4 justify-center break-words text-center ">
       <div className="my-6">
@@ -36,6 +41,9 @@ const FlashcardItem = (props: FlashCardItemProps) => {
           onChange={(e) => onChangeValueHandler(e, setDefinition)}
           value={definition}
         />
+      </div>
+      <div className="grid place-items-center">
+        <button onClick={onClickHandler}>X</button>
       </div>
     </div>
   );

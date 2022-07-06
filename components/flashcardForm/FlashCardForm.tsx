@@ -53,6 +53,7 @@ const FlashcardForm = () => {
     sendFlashcard(flashCard);
     router.push('/quiz/' + flashCard.id);
   };
+  console.log(itemsList);
 
   const updateItems = (item: FlashcardItemInterface) => {
     setItemsList((prevItems) => {
@@ -67,6 +68,15 @@ const FlashcardForm = () => {
         return flashcardItem;
       });
     });
+  };
+
+  const deleteItem = (item: FlashcardItemInterface) => {
+    console.log('ITEM', item);
+    setItemsList((prevItems) =>
+      prevItems.filter((card) => {
+        return card.id !== item.id;
+      })
+    );
   };
 
   const onTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -85,8 +95,13 @@ const FlashcardForm = () => {
             />
           </div>
 
-          {itemsList.map((item) => (
-            <FlashcardItem item={item} updateItem={updateItems} />
+          {itemsList.map((item, i) => (
+            <FlashcardItem
+              key={i}
+              item={item}
+              updateItem={updateItems}
+              deleteItem={deleteItem}
+            />
           ))}
         </div>
         <div className="grid grid-rows-2 h-[5rem]">

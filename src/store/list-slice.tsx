@@ -1,15 +1,15 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { FlashCard } from "../../shared/types";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Flashcard } from '../../shared/types';
 
 const initial = {
-  listOfFlashCards: [] as FlashCard[],
+  listOfFlashCards: [] as Flashcard[],
 };
 
 const listSlice = createSlice({
-  name: "listSlice",
+  name: 'listSlice',
   initialState: initial,
   reducers: {
-    addFlashCardToList(state, action: PayloadAction<FlashCard>) {
+    addFlashCardToList(state, action: PayloadAction<Flashcard>) {
       state.listOfFlashCards.push(action.payload);
     },
     setFetchedItems(state, action) {
