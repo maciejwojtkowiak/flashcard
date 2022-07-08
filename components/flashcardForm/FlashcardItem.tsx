@@ -43,7 +43,12 @@ const FlashcardItem = (props: FlashCardItemProps) => {
         />
       </div>
       <div className="grid place-items-center">
-        <button onClick={onClickHandler}>X</button>
+        <button
+          onClick={onClickHandler}
+          className="bg-red-500 px-2 rounded-md text-white"
+        >
+          X
+        </button>
       </div>
     </div>
   );
