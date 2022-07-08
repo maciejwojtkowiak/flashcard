@@ -44,6 +44,9 @@ const FlashcardForm = () => {
         flashcard.definition.length === 0
     );
 
+    if (someFlashcardIsEmpty) return;
+    if (title.length === 0) return;
+
     const flashCard = {
       title: title,
       id: Math.random().toString(),
