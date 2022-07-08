@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Flashcard } from '../../shared/types';
+import { Flashcard } from '../shared/types';
 
 const initial = {
   listOfFlashCards: [] as Flashcard[],

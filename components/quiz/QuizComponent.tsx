@@ -65,18 +65,26 @@ const QuizComponent = (props: QuizProps) => {
 
       <div className="grid place-items-center">
         <div>
-          <button onClick={onClickDecrease}>
+          <button
+            disabled={isAtMinIndex}
+            onClick={onClickDecrease}
+            className={`${isAtMinIndex ? 'text-gray-300' : ''}`}
+          >
             <FaArrowLeft size={50} />
           </button>
 
-          <button onClick={onClickIncrease}>
+          <button
+            disabled={isAtMaxIndex}
+            onClick={onClickIncrease}
+            className={`${isAtMaxIndex ? 'text-gray-300' : ''}`}
+          >
             <FaArrowRight size={50} />
           </button>
         </div>
 
         {isAtMaxIndex && (
           <Link href="/">
-            <button className="absolute text-4xl mt-32 bg-green-400 py-4 px-6 rounded-xl text-white">
+            <button className="absolute text-4xl mt-64 bg-green-400 py-4 px-6 rounded-xl text-white">
               Finish!
             </button>
           </Link>

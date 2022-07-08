@@ -5,7 +5,7 @@ import {
   Flashcard,
   FlashcardItemInterface,
 } from '../../shared/types';
-import { listAction } from '../../src/store/list-slice';
+import { listAction } from '../../store/list-slice';
 import FlashcardItem from './FlashcardItem';
 
 const FlashcardForm = () => {
