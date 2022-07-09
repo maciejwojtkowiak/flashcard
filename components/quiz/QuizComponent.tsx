@@ -2,6 +2,7 @@ import { Flashcard } from '../../shared/types';
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 interface QuizProps {
   flashcard: Flashcard;
@@ -37,7 +38,6 @@ const QuizComponent = (props: QuizProps) => {
     if (actualIndex === MAX_INDEX) setIsAtMaxIndex(true);
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
-  console.log('title', props.flashcard.title);
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
@@ -51,17 +51,17 @@ const QuizComponent = (props: QuizProps) => {
 
   return (
     <div className="h-screen w-full grid place-items-center">
-      <div
+      <motion.div
         onClick={onClickFlip}
         className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2"
       >
         <h1>{props.flashcard.title}</h1>
-        <h1 className="text-6xl">
+        <motion.h1 className="text-6xl" whileTap={{ rotateY: 100 }}>
           {!definitionIsShown
             ? items[actualIndex].word
             : items[actualIndex].definition}
-        </h1>
-      </div>
+        </motion.h1>
+      </motion.div>
 
       <div className="grid place-items-center">
         <div>
