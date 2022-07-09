@@ -1,7 +1,12 @@
-import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from "next";
-import { connectToMongo } from "../../helpers/connectToMongo";
-import { FlashCard } from "../../shared/types";
-import QuizComponent from "../../components/Quiz/QuizComponent";
+import {
+  GetStaticPaths,
+  GetStaticProps,
+  InferGetStaticPropsType,
+} from 'next';
+import { connectToMongo } from '../../helpers/connectToMongo';
+import { Flashcard } from '../../shared/types';
+import QuizComponent from '../../components/Quiz/QuizComponent';
+import { closeMongo } from '../../helpers/closeMongo';
 
 const FlashcardQuiz = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -11,7 +16,7 @@ const FlashcardQuiz = (
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const db = await connectToMongo();
-  const flashcardsCollection = db.collection("flashcards");
+  const flashcardsCollection = db.collection('flashcards');
   const correctedFlashcards = (
     await flashcardsCollection.find({}).toArray()
   ).map((flashcard) => {
@@ -22,10 +27,10 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 
-  console.log("corrected", flashcardsCollection)
+  console.log('corrected', flashcardsCollection);
 
   return {
-    fallback: "blocking",
+    fallback: 'blocking',
     paths: correctedFlashcards,
   };
 };
@@ -34,7 +39,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
   const flashCardId = context.params?.quizId;
 
   const db = await connectToMongo();
-  const flashcardsCollection = db.collection("flashcards");
+  const flashcardsCollection = db.collection('flashcards');
   const correctedFlashcard = (
     await flashcardsCollection.find({}).toArray()
   ).map((flashcard) => {
@@ -42,12 +47,12 @@ export const getStaticProps: GetStaticProps = async (context) => {
       ...flashcard,
       _id: flashcard._id!.toString(),
     };
-  }) as FlashCard[];
+  }) as Flashcard[];
 
   const foundFlashcard = correctedFlashcard.find(
     (flashcard) => flashcard.id === flashCardId
   );
-  console.log("corrected", correctedFlashcard)
+  closeMongo();
 
   return {
     props: {

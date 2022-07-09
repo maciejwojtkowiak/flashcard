@@ -5,6 +5,7 @@ import {
 } from 'next';
 import { connectToMongo } from '../../helpers/connectToMongo';
 import CreatedQuizesList from '../../components/CreatedQuizesList/CreatedQuizesList';
+import { closeMongo } from '../../helpers/closeMongo';
 
 const CreatedQuizes: NextPage = (
   props: InferGetStaticPropsType<typeof getStaticProps>
@@ -23,6 +24,7 @@ export const getStaticProps: GetStaticProps = async () => {
       _id: flashcard._id.toString(),
     };
   });
+  closeMongo();
 
   return {
     props: {
