@@ -6,7 +6,7 @@ import {
 import { connectToMongo } from '../../helpers/connectToMongo';
 import { Flashcard } from '../../shared/types';
 import { closeMongo } from '../../helpers/closeMongo';
-import QuizComponent from '../../components/Quiz/QuizComponent';
+import QuizComponent from '../../components/QuizActive/QuizComponent';
 
 const FlashcardQuiz = (
   props: InferGetStaticPropsType<typeof getStaticProps>
