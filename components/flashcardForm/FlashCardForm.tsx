@@ -97,7 +97,6 @@ const FlashcardForm = () => {
   };
 
   const deleteItem = (item: FlashcardItemInterface) => {
-    console.log('ITEM', item);
     setItemsList((prevItems) =>
       prevItems.filter((card) => {
         return card.id !== item.id;

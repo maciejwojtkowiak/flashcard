@@ -52,6 +52,9 @@ const QuizCard = (props: CardProps) => {
           ? props.items[props.actualIndex].word
           : props.items[props.actualIndex].definition}
       </motion.h1>
+      <p className="absolute bottom-1 right-1 text-gray-300 ">
+        {definitionIsShown ? 'definition' : 'word'}
+      </p>
     </motion.div>
   );
 };

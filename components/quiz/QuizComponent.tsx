@@ -3,7 +3,10 @@ import {
   FlashcardItemInterface,
 } from '../../shared/types';
 import React, { useState, useEffect } from 'react';
-import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import {
+  IoMdArrowDropleft,
+  IoMdArrowDropright,
+} from 'react-icons/io';
 import Link from 'next/link';
 import QuizCard from './QuizCard';
 
@@ -55,24 +58,24 @@ const QuizComponent = (props: QuizProps) => {
         <button
           disabled={isAtMinIndex}
           onClick={onClickDecrease}
-          className={`${isAtMinIndex ? 'text-gray-300' : ''}`}
+          className={`${isAtMinIndex ? 'text-gray-300' : ''} mr-12`}
         >
-          <FaArrowLeft size={50} />
+          <IoMdArrowDropleft size={50} />
         </button>
         <QuizCard items={items} actualIndex={actualIndex} />
         <button
           disabled={isAtMaxIndex}
           onClick={onClickIncrease}
-          className={`${isAtMaxIndex ? 'text-gray-300' : ''}`}
+          className={`${isAtMaxIndex ? 'text-gray-300' : ''} ml-12`}
         >
-          <FaArrowRight size={50} />
+          <IoMdArrowDropright size={50} />
         </button>
       </div>
 
       <div className="grid place-items-center">
         {isAtMaxIndex && (
           <Link href="/">
-            <button className="absolute text-4xl  bg-green-400 py-4 px-6 rounded-xl text-white">
+            <button className="absolute text-4xl  bg-blue-400 py-4 px-6 rounded-xl text-white">
               Finish!
             </button>
           </Link>

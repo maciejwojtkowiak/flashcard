@@ -27,8 +27,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
     };
   });
 
-  console.log('corrected', flashcardsCollection);
-
   return {
     fallback: 'blocking',
     paths: correctedFlashcards,
