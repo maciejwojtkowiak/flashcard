@@ -43,6 +43,9 @@ const QuizCard = (props: CardProps) => {
       className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2 cursor-pointer "
       onClick={onClickFlip}
     >
+      <p className="absolute top-1 left-1 text-gray-300  text-xs">
+        Tap the card to check a definition
+      </p>
       <motion.h1
         className="text-6xl"
         variants={animation}

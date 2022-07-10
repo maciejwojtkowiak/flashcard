@@ -14,7 +14,6 @@ import { notificationAction } from '../../store/notification-slice';
 const FlashcardForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const flashcardId = useId();
   const [itemsList, setItemsList] = useState<
     FlashcardItemInterface[]
   >([]);
@@ -73,7 +72,7 @@ const FlashcardForm = () => {
 
     const flashCard = {
       title: title,
-      id: flashcardId,
+      id: Math.floor(Math.random() * 10000000).toString(),
       items: itemsList,
     };
     dispatch(listAction.addFlashCardToList(flashCard));
