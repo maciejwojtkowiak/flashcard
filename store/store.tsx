@@ -1,9 +1,11 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { listReducer } from "./list-slice";
+import { configureStore } from '@reduxjs/toolkit';
+import { listReducer } from './list-slice';
+import { notificationReducer } from './notification-slice';
 
 const Store = configureStore({
   reducer: {
     listSlice: listReducer,
+    notificationSlice: notificationReducer,
   },
 });
 

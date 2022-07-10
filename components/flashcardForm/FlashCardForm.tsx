@@ -1,12 +1,15 @@
 import { useRouter } from 'next/router';
-import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   Flashcard,
   FlashcardItemInterface,
 } from '../../shared/types';
 import { listAction } from '../../store/list-slice';
+import { RootState } from '../../store/store';
 import FlashcardItem from './FlashcardItem';
+import Notification from '../Notification/notification';
+import { notificationAction } from '../../store/notification-slice';
 
 const FlashcardForm = () => {
   const dispatch = useDispatch();
@@ -15,6 +18,9 @@ const FlashcardForm = () => {
     FlashcardItemInterface[]
   >([]);
   const [title, setTitle] = useState<string>('');
+  const notificationIsShown = useSelector((state: RootState) => {
+    state.notificationSlice.isShown;
+  });
 
   const sendFlashcard = async (flashcard: Flashcard) => {
     fetch('/api/', {
@@ -56,7 +62,6 @@ const FlashcardForm = () => {
     sendFlashcard(flashCard);
     router.push('/quiz/' + flashCard.id);
   };
-  console.log(itemsList);
 
   const updateItems = (item: FlashcardItemInterface) => {
     setItemsList((prevItems) => {
@@ -86,8 +91,20 @@ const FlashcardForm = () => {
     setTitle(e.target.value);
   };
 
+  useEffect(() => {
+    setTimeout(() => {
+      dispatch(
+        notificationAction.setNotification({
+          message: '',
+          isShown: false,
+        })
+      );
+    });
+  }, [notificationIsShown]);
+
   return (
     <div className="h-screen  grid place-items-center">
+      <Notification />
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
         <div className=" h-[35rem] w-full overflow-auto">
           <div className=" flex justify-center mx-4 ">

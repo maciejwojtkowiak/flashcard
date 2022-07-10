@@ -8,6 +8,21 @@ interface QuizProps {
   flashcard: Flashcard;
 }
 
+const animation = {
+  flip: {
+    rotateY: 180,
+    transition: {
+      duration: 0.5,
+    },
+  },
+  notFlipped: {
+    rotateY: 0,
+    transition: {
+      duration: 0.5,
+    },
+  },
+};
+
 const QuizComponent = (props: QuizProps) => {
   const items = props.flashcard?.items;
   const MIN_INDEX = 0;
@@ -19,6 +34,7 @@ const QuizComponent = (props: QuizProps) => {
   const [isAtMaxIndex, setIsAtMaxIndex] = useState<boolean>(false);
   const [definitionIsShown, setDefinitionIsShown] =
     useState<boolean>(false);
+  const [isTapped, setIsTapped] = useState<boolean>(false);
 
   const onClickDecrease = () => {
     setActualIndex((prevIndex) => --prevIndex);
@@ -30,6 +46,7 @@ const QuizComponent = (props: QuizProps) => {
 
   const onClickFlip = () => {
     setDefinitionIsShown((prev) => !prev);
+    setIsTapped(true);
   };
 
   useEffect(() => {
@@ -38,6 +55,14 @@ const QuizComponent = (props: QuizProps) => {
     if (actualIndex === MAX_INDEX) setIsAtMaxIndex(true);
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setIsTapped(false);
+    }, 500);
+
+    return () => {};
+  }, [isTapped]);
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
@@ -51,12 +76,18 @@ const QuizComponent = (props: QuizProps) => {
 
   return (
     <div className="h-screen w-full grid place-items-center">
+      <h1 className="text-6xl font-bold text-blue-500 ">
+        {props.flashcard.title}
+      </h1>
       <motion.div
+        className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2 cursor-pointer "
         onClick={onClickFlip}
-        className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2"
       >
-        <h1>{props.flashcard.title}</h1>
-        <motion.h1 className="text-6xl" whileTap={{ rotateY: 100 }}>
+        <motion.h1
+          className="text-6xl"
+          variants={animation}
+          animate={isTapped ? 'flip' : 'notFlipped'}
+        >
           {!definitionIsShown
             ? items[actualIndex].word
             : items[actualIndex].definition}

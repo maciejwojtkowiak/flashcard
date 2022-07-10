@@ -9,12 +9,15 @@ import { Bars } from 'react-loader-spinner';
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
   useEffect(() => {
     router.events.on('routeChangeStart', () => setIsLoading(true));
     router.events.on('routeChangeComplete', () =>
       setIsLoading(false)
     );
   }, []);
+
+  useEffect(() => {});
   return (
     <Provider store={Store}>
       {isLoading && (
@@ -22,6 +25,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <Bars height={100} width={100} color="#4ade80" />
         </div>
       )}
+
       {!isLoading && <Component {...pageProps} />}
     </Provider>
   );
