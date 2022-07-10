@@ -1,13 +1,9 @@
-import type { InferGetStaticPropsType, NextPage } from "next";
-import { useDispatch } from "react-redux";
-import { GetStaticProps } from "next";
+import type { NextPage } from 'next';
 
-import Main from "../components/Main/Main";
-
+import Main from '../components/Main/Main';
 
 const Home: NextPage = () => {
   return <Main />;
 };
-
 
 export default Home;
