@@ -1,30 +1,18 @@
-import { Flashcard } from '../../shared/types';
+import {
+  Flashcard,
+  FlashcardItemInterface,
+} from '../../shared/types';
 import React, { useState, useEffect } from 'react';
 import { FaArrowLeft, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import QuizCard from './QuizCard';
 
 interface QuizProps {
   flashcard: Flashcard;
 }
 
-const animation = {
-  flip: {
-    rotateY: 180,
-    transition: {
-      duration: 0.5,
-    },
-  },
-  notFlipped: {
-    rotateY: 0,
-    transition: {
-      duration: 0.5,
-    },
-  },
-};
-
 const QuizComponent = (props: QuizProps) => {
-  const items = props.flashcard?.items;
+  const items = props.flashcard?.items as FlashcardItemInterface[];
   const MIN_INDEX = 0;
   const MAX_INDEX = items.length - 1;
   const widthOfBlock = (100 / items.length).toFixed(2).toString();
@@ -32,9 +20,6 @@ const QuizComponent = (props: QuizProps) => {
   const arrayOfProgressBlocks: React.ReactElement[] = [];
   const [isAtMinIndex, setIsAtMinIndex] = useState<boolean>(false);
   const [isAtMaxIndex, setIsAtMaxIndex] = useState<boolean>(false);
-  const [definitionIsShown, setDefinitionIsShown] =
-    useState<boolean>(false);
-  const [isTapped, setIsTapped] = useState<boolean>(false);
 
   const onClickDecrease = () => {
     setActualIndex((prevIndex) => --prevIndex);
@@ -44,25 +29,12 @@ const QuizComponent = (props: QuizProps) => {
     setActualIndex((previndex) => ++previndex);
   };
 
-  const onClickFlip = () => {
-    setDefinitionIsShown((prev) => !prev);
-    setIsTapped(true);
-  };
-
   useEffect(() => {
     if (actualIndex === MIN_INDEX) setIsAtMinIndex(true);
     else setIsAtMinIndex(false);
     if (actualIndex === MAX_INDEX) setIsAtMaxIndex(true);
     else setIsAtMaxIndex(false);
   }, [actualIndex]);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setIsTapped(false);
-    }, 500);
-
-    return () => {};
-  }, [isTapped]);
 
   for (let i = 0; i <= actualIndex; i++) {
     arrayOfProgressBlocks.push(
@@ -79,43 +51,28 @@ const QuizComponent = (props: QuizProps) => {
       <h1 className="text-6xl font-bold text-blue-500 ">
         {props.flashcard.title}
       </h1>
-      <motion.div
-        className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2 cursor-pointer "
-        onClick={onClickFlip}
-      >
-        <motion.h1
-          className="text-6xl"
-          variants={animation}
-          animate={isTapped ? 'flip' : 'notFlipped'}
+      <div className="flex w-full justify-center">
+        <button
+          disabled={isAtMinIndex}
+          onClick={onClickDecrease}
+          className={`${isAtMinIndex ? 'text-gray-300' : ''}`}
         >
-          {!definitionIsShown
-            ? items[actualIndex].word
-            : items[actualIndex].definition}
-        </motion.h1>
-      </motion.div>
+          <FaArrowLeft size={50} />
+        </button>
+        <QuizCard items={items} actualIndex={actualIndex} />
+        <button
+          disabled={isAtMaxIndex}
+          onClick={onClickIncrease}
+          className={`${isAtMaxIndex ? 'text-gray-300' : ''}`}
+        >
+          <FaArrowRight size={50} />
+        </button>
+      </div>
 
       <div className="grid place-items-center">
-        <div>
-          <button
-            disabled={isAtMinIndex}
-            onClick={onClickDecrease}
-            className={`${isAtMinIndex ? 'text-gray-300' : ''}`}
-          >
-            <FaArrowLeft size={50} />
-          </button>
-
-          <button
-            disabled={isAtMaxIndex}
-            onClick={onClickIncrease}
-            className={`${isAtMaxIndex ? 'text-gray-300' : ''}`}
-          >
-            <FaArrowRight size={50} />
-          </button>
-        </div>
-
         {isAtMaxIndex && (
           <Link href="/">
-            <button className="absolute text-4xl mt-64 bg-green-400 py-4 px-6 rounded-xl text-white">
+            <button className="absolute text-4xl  bg-green-400 py-4 px-6 rounded-xl text-white">
               Finish!
             </button>
           </Link>

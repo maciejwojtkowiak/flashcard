@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useId, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   Flashcard,
@@ -14,6 +14,7 @@ import { notificationAction } from '../../store/notification-slice';
 const FlashcardForm = () => {
   const dispatch = useDispatch();
   const router = useRouter();
+  const flashcardId = useId();
   const [itemsList, setItemsList] = useState<
     FlashcardItemInterface[]
   >([]);
@@ -72,7 +73,7 @@ const FlashcardForm = () => {
 
     const flashCard = {
       title: title,
-      id: Math.random().toString(),
+      id: flashcardId,
       items: itemsList,
     };
     dispatch(listAction.addFlashCardToList(flashCard));
