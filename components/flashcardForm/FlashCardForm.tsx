@@ -8,7 +8,7 @@ import {
 import { listAction } from '../../store/list-slice';
 import { RootState } from '../../store/store';
 import FlashcardItem from './FlashcardItem';
-import Notification from '../Notification/notification';
+import Notification from '../Notification/Notification';
 import { notificationAction } from '../../store/notification-slice';
 
 const FlashcardForm = () => {
@@ -18,9 +18,9 @@ const FlashcardForm = () => {
     FlashcardItemInterface[]
   >([]);
   const [title, setTitle] = useState<string>('');
-  const notificationIsShown = useSelector((state: RootState) => {
-    state.notificationSlice.isShown;
-  });
+  const notificationIsShown = useSelector(
+    (state: RootState) => state.notificationSlice.isShown
+  );
 
   const sendFlashcard = async (flashcard: Flashcard) => {
     fetch('/api/', {
@@ -50,8 +50,25 @@ const FlashcardForm = () => {
         flashcard.definition.length === 0
     );
 
-    if (someFlashcardIsEmpty) return;
-    if (title.length === 0) return;
+    if (title.length === 0) {
+      dispatch(
+        notificationAction.setNotification({
+          message: 'Title can not be empty',
+          isShown: true,
+        })
+      );
+      return;
+    }
+
+    if (someFlashcardIsEmpty) {
+      dispatch(
+        notificationAction.setNotification({
+          message: 'Some flashcards are empty',
+          isShown: true,
+        })
+      );
+      return;
+    }
 
     const flashCard = {
       title: title,
@@ -92,19 +109,25 @@ const FlashcardForm = () => {
   };
 
   useEffect(() => {
-    setTimeout(() => {
+    const notificationTimeout = setTimeout(() => {
       dispatch(
         notificationAction.setNotification({
           message: '',
           isShown: false,
         })
       );
-    });
+    }, 2000);
+    return () => clearTimeout(notificationTimeout);
   }, [notificationIsShown]);
 
   return (
     <div className="h-screen  grid place-items-center">
-      <Notification />
+      {notificationIsShown && (
+        <div className="absolute right-0 top-0 mr-16 mt-8 border-4 border-red-500 py-4 px-8 rounded-lg font-bold text-xl drop-shadow-2xl shadow-2xl">
+          <Notification />
+        </div>
+      )}
+
       <div className="h-[40rem] w-[30rem] drop-shadow-2xl shadow-2xl ">
         <div className=" h-[35rem] w-full overflow-auto">
           <div className=" flex justify-center mx-4 ">
