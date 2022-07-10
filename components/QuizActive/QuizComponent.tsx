@@ -1,14 +1,21 @@
-import { FlashCard } from "../../shared/types";
-import React, { useState, useEffect } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
-import Link from "next/link";
+import {
+  Flashcard,
+  FlashcardItemInterface,
+} from '../../shared/types';
+import React, { useState, useEffect } from 'react';
+import {
+  IoMdArrowDropleft,
+  IoMdArrowDropright,
+} from 'react-icons/io';
+import Link from 'next/link';
+import QuizCard from './QuizCard';
 
 interface QuizProps {
-  flashcard: FlashCard;
+  flashcard: Flashcard;
 }
 
-const QuizComponent: React.FC<QuizProps> = (props) => {
-  const items = props.flashcard?.items;
+const QuizComponent = (props: QuizProps) => {
+  const items = props.flashcard?.items as FlashcardItemInterface[];
   const MIN_INDEX = 0;
   const MAX_INDEX = items.length - 1;
   const widthOfBlock = (100 / items.length).toFixed(2).toString();
@@ -16,7 +23,6 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
   const arrayOfProgressBlocks: React.ReactElement[] = [];
   const [isAtMinIndex, setIsAtMinIndex] = useState<boolean>(false);
   const [isAtMaxIndex, setIsAtMaxIndex] = useState<boolean>(false);
-  const [definitionIsShown, setDefinitionIsShown] = useState<boolean>(false);
 
   const onClickDecrease = () => {
     setActualIndex((prevIndex) => --prevIndex);
@@ -24,10 +30,6 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   const onClickIncrease = () => {
     setActualIndex((previndex) => ++previndex);
-  };
-
-  const onClickFlip = () => {
-    setDefinitionIsShown((prev) => !prev);
   };
 
   useEffect(() => {
@@ -49,34 +51,31 @@ const QuizComponent: React.FC<QuizProps> = (props) => {
 
   return (
     <div className="h-screen w-full grid place-items-center">
-      <div
-        onClick={onClickFlip}
-        className="h-[20rem] w-1/4 grid place-items-center drop-shadow-2xl shadow-2xl text-blue-500 border-2"
-      >
-        <h1 className="text-6xl">
-          {!definitionIsShown
-            ? items[actualIndex].word
-            : items[actualIndex].definition}
-        </h1>
+      <h1 className="text-6xl font-bold text-blue-500 ">
+        {props.flashcard.title}
+      </h1>
+      <div className="flex w-full justify-center">
+        <button
+          disabled={isAtMinIndex}
+          onClick={onClickDecrease}
+          className={`${isAtMinIndex ? 'text-gray-300' : ''} mr-12`}
+        >
+          <IoMdArrowDropleft size={50} />
+        </button>
+        <QuizCard items={items} actualIndex={actualIndex} />
+        <button
+          disabled={isAtMaxIndex}
+          onClick={onClickIncrease}
+          className={`${isAtMaxIndex ? 'text-gray-300' : ''} ml-12`}
+        >
+          <IoMdArrowDropright size={50} />
+        </button>
       </div>
 
-      <div>
-        <div>
-          {!isAtMinIndex && (
-            <button onClick={onClickDecrease}>
-              <FaArrowLeft />
-            </button>
-          )}
-          {!isAtMaxIndex && (
-            <button onClick={onClickIncrease}>
-              <FaArrowRight />
-            </button>
-          )}
-        </div>
-
+      <div className="grid place-items-center">
         {isAtMaxIndex && (
           <Link href="/">
-            <button className="absolute text-4xl translate-x-[-50%] mt-16">
+            <button className="absolute text-4xl  bg-blue-400 py-4 px-6 rounded-xl text-white">
               Finish!
             </button>
           </Link>

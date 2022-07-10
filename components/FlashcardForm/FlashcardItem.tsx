@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { FlashcardItemInterface } from "../../shared/types";
+import { useState } from 'react';
+import { FlashcardItemInterface } from '../../shared/types';
 
 interface FlashCardItemProps {
   item: FlashcardItemInterface;
   updateItem: (item: FlashcardItemInterface) => void;
+  deleteItem: (item: FlashcardItemInterface) => void;
 }
 
-const FlashcardItem: React.FC<FlashCardItemProps> = (props) => {
-  const [word, setWord] = useState<string>("");
-  const [definition, setDefinition] = useState<string>("");
+const FlashcardItem = (props: FlashCardItemProps) => {
+  const [word, setWord] = useState<string>('');
+  const [definition, setDefinition] = useState<string>('');
   const onChangeValueHandler = (
     e: React.ChangeEvent<HTMLInputElement>,
     setValue: (value: string) => void
@@ -20,6 +21,10 @@ const FlashcardItem: React.FC<FlashCardItemProps> = (props) => {
       definition: definition,
     };
     props.updateItem(item);
+  };
+
+  const onClickHandler = () => {
+    props.deleteItem(props.item);
   };
   return (
     <div className=" w-full flex gap-4 justify-center break-words text-center ">
@@ -36,6 +41,14 @@ const FlashcardItem: React.FC<FlashCardItemProps> = (props) => {
           onChange={(e) => onChangeValueHandler(e, setDefinition)}
           value={definition}
         />
+      </div>
+      <div className="grid place-items-center">
+        <button
+          onClick={onClickHandler}
+          className="bg-red-500 px-2 rounded-md text-white"
+        >
+          X
+        </button>
       </div>
     </div>
   );

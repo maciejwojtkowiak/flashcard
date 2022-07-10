@@ -1,4 +1,4 @@
-import { ObjectId } from "mongodb";
+import { ObjectId } from 'mongodb';
 
 export interface FlashcardItemInterface {
   word: string;
@@ -6,10 +6,9 @@ export interface FlashcardItemInterface {
   id: number;
 }
 
-export interface FlashCard {
+export interface Flashcard {
   _id?: ObjectId | string;
   id: string;
-  title: string;
   items: FlashcardItemInterface[];
-  dateOfCreation: Date;
+  title: string;
 }
